@@ -1,10 +1,11 @@
 
 const express = require('express');
-const socketIo = require('socket.io');
+const {Server} = require('socket.io');
 const handlebars = require('express-handlebars');
 const productsRoute = require('./routes/products.routes');
 const cardsRoute = require ('./routes/carts.routes')
 const viewRoute = require('./routes/views.route')
+const {connectionSocket} = require('./utils/soket.io')
 const server = express();
 
 
@@ -22,27 +23,10 @@ server.use(express.static(__dirname+'/public'));
 server.use(express.json())
 server.use(express.urlencoded({extended:true}))
 //rutas
+
 server.use("/api/products/", productsRoute);
-server.use("/api/products/", productsRoute);
-server.use("/api/products/", productsRoute);
-server.use("/api/products/", productsRoute);
-server.use("/api/products/", productsRoute);
-server.use("/api/carts/", cardsRoute);
-server.use("/api/carts/", cardsRoute);
 server.use("/api/carts/", cardsRoute);
 server.use("/", viewRoute);
 
-// socket
-const io = socketIo(httpServer);
+connectionSocket (httpServer);
 
-io.on ('connection',(sokets)=>{
-    console.log("Nuevo Clinte conectado")
-})  
-
-
-
-
-/*
-<h5 class="card-title">{{name}}</h5>
-<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-<a href="#" class="btn btn-primary">Go somewhere</a>*/

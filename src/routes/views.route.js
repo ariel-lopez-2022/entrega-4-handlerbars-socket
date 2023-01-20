@@ -5,5 +5,10 @@ const router = Router();
 
 router.get('/', viewControllers.views)
 
+router.get('/realtimeproducts/', viewControllers.RealTimeProduct)
+
+router.delete('/realtimeproducts/:pid', viewControllers.deleteRealTimeProduct)
+router.post('/realtimeproducts/', viewControllers.addRealTimeProduct)
+
 
 module.exports = router;
