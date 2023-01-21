@@ -1,7 +1,7 @@
 const ProductManager = require("../ProductManager");
+const Product = new ProductManager('./assets/product.json');
 const { emitDeleteProduct } = require("../utils/soket.io");
 const { emitaddRealtime } = require("../utils/soket.io");
-const Product = new ProductManager('./assets/product.json');
 
 const views = async (req, res) => {
     let products = await Product.getProducts();
@@ -14,21 +14,19 @@ const RealTimeProduct = async (req, res) =>{
     res.render('realTimeProducts')
 }
 
-const deleteRealTimeProduct = async (req, res) =>{
-    const id = +req.params.pid 
-  const Delete = await Product.deleteProduct (id);
-  
-  if (Delete.erro){
-    res.json(Delete);
-  }else{
-    emitDeleteProduct(id)
-    res.json(Delete);
-  }
-}
+ const deleteRealTimeProduct = async (req, res) =>{
+   const id = +req.params.pid 
+   const Delete = await Product.deleteProduct (id);
+   if (Delete.erro){
+     res.json(Delete);
+   }else{
+     emitDeleteProduct(id)
+     res.json(Delete);
+   }
+ }
 
 const addRealTimeProduct = async (req, res)=>{
     const body = req.body;
-    
     const add = await Product.addProduct(body);
     if (add.erro){
       res.json(add)

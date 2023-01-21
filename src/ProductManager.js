@@ -40,7 +40,7 @@ class ProductManager {
       const { products } = await readFile(this.path);
       this.Product = products;
       this.Product.push({
-        id: this.Product.length,
+        id: this.Product.length++,
         ...objeto
       });
       await writeFile(this.path, this.Product);
